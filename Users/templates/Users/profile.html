@@ -1,0 +1,27 @@
+{% extends "Tasks/base.html" %}
+{% load crispy_forms_tags %}
+
+{%block content %}
+<div class="row align-items-center">
+	<div class="col-md-4 mb-2">
+		<!-- Image class -->
+		<img src="https://i.pinimg.com/564x/51/f6/fb/51f6fb256629fc755b8870c801092942.jpg" class="rounded-circle img-fluid"  alt="Cinque Terre" width="300" height="300">
+	</div>
+	<div class="col-md-8 ">
+		<!--  user name and gmail -->
+		<p class="display-4">{{ user.profile.firstName }} {{ user.profile.LastName }}</p>
+		<p class="h2"><small class="text-muted">{{user.email}}</small></p>	
+	</div>
+	<div class="col-12  py-3 px-lg-5 border bg-light">
+		<!-- Form update  -->
+		<p class="lead">Account</p>
+		<form  method="POST"  >
+		{% csrf_token %}
+		{{n_form|crispy}}
+		{{u_form|crispy}}
+		<button class="btn btn-success " type="submit"><i class="icon-undo"></i> Update</button>
+		</form>	
+	</div>
+</div>
+
+{% endblock %} 

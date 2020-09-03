@@ -1,0 +1,14 @@
+{% extends "Tasks/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{%block content %}
+	{% for task in user_tasks %}
+	<li>{{task.task}}</li>
+	<form action="/NewUpdate/{{task.id}}/" method="post">{% csrf_token %}
+	<button type="submit" name="newStatus" class="btn btn-primary">newStatus</button>
+	</form>
+
+	{% endfor %}
+
+{% endblock %}

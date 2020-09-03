@@ -1,0 +1,209 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Home</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="https://image.flaticon.com/icons/png/128/2928/2928874.png" rel="icon">
+
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+ <!-- font awesome -->
+   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  <!-- boxicon -->
+  <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+ 
+    <link rel="stylesheet" type="text/css" href="{% static 'Tasks/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Tasks/boxicons.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Tasks/icofont.min.css'%}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'Tasks/remixicon.css'%}">
+     <link rel="stylesheet" type="text/css" href="{% static 'Tasks/remixicon.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Tasks/owl.carousel.min.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'Tasks/owl.carousel.min.css' %}">
+
+  <!-- Template Main CSS File -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Tasks/style.css' %}">
+
+
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top header-inner-pages">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo mr-auto"><a href="{% url 'home-page' %}">todoit</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+        {%  if user.is_authenticated %}
+          <li><a href="{% url 'user-tasks' user.username %}">Home</a></li>
+          <li><a href="{% url 'Profile-page' %}">Profile</a></li>
+          <!--<li><a href="{% url 'register-page' %}">Contact</a></li>-->
+          <li><a href="{% url 'logout-page' %}">Logout </a></li>
+        {%  else %}
+          <li><a href="/">Home</a></li>
+          <li><a href="{% url 'login-page' %}">Login</a></li>
+          <li><a href="{% url 'register-page' %}">Register</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+      <a href="{% url 'register-page' %}" class="get-started-btn scrollto">Get Started</a>
+      {% endif %}
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <br>
+        <br>
+        <br>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+      <div class="container">
+        {% block content %}
+
+
+       
+       <a href="{% url 'create-task'  %}" class="get-started-btn scrollto btn-primary ml-5 mb-5">New Task</a>
+{% for task in all_tasks %}
+    {% if task.author == request.user %} 
+    {% if task.priority == '0' %}
+    <div class="card border-dark  mt-2 mb-2">
+    {% elif task.priority == '1'  %}
+    <div class="card border-success mt-2 mb-2">
+    {% elif task.priority == '2'  %}
+    <div class="card border-warning mt-2 mb-2">
+    {% elif task.priority == '3'  %}
+    <div class="card border-danger mt-2 mb-2">
+    {% endif %}
+
+        <div class="card-body">
+          <div class="form-check">
+              
+            <div class="row">
+              <div class="col-md-8">
+              {% if task.completed == True %}
+              <p class="lead"><del> {{ task.task}}</del></p> 
+              {% else %}
+              <p class="lead"> {{ task.task}}</p>
+              {% endif %} 
+              </div>
+              <div class="col-md-3">
+              {% if task.completed == True %}
+              <button class="btn btn-primary btn-sm mb-1" disabled><i class="icon-undo"></i> Update</button>
+              <a class="btn btn-danger btn-sm mb-1" href="{% url 'delete-task' task.id %}" ><i class="icon-trash"></i> Delete</a>
+              {% else %}
+              <a class="btn btn-primary btn-sm mb-1" href="{% url 'update-task' task.id %}" ><i class="icon-undo"></i> Update</a>
+              <a class="btn btn-danger btn-sm mb-1" href="{% url 'delete-task' task.id %}" ><i class="icon-trash"></i> Delete</a>        
+              {% endif %}     
+              </div>
+              </div>
+          </div>
+      </div>
+    </div>
+{% endif %}
+{% endfor %}
+        
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+      {% if is_paginated %}
+    {% if page_obj.has_previous %}
+      <a class="btn btn-primary" href="?page=1">First</a>
+      <a class="btn btn-primary" href="?page={{page_obj.previous_page_number}}">Previous</a>
+    {% endif%}
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+      <a class="btn btn-primary" href="?page={{num}}">{{num}}</a>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <a class="btn btn-primary" href="?page={{num}}">{{num}}</a>
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <a class="btn btn-primary" href="?page={{page_obj.next_page_number}}">Next</a>
+      <a class="btn btn-primary" href="?page={{page_obj.paginator.num_pages}}">Last</a>
+    {% endif %}
+  {%  endif %}
+    </div>
+  </div>
+
+
+        {% endblock content%}
+      </div>
+   
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+        <br>
+        <br>
+        <br>
+
+   
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+
+    
+        <br>
+        &copy; Copyright <strong><span>ToDoIt</span></strong>. All Rights Reserved
+        <br>
+      </div>
+      
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class='bx bxs-chevron-up'></i></a>
+<div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+    <script src="{% static 'Tasks/js/jquery.min.js' %}"></script> 
+   <script src="{% static 'Tasks/js/bootstrap.bundle.min.js' %}"></script> 
+
+  <script src="{% static 'Tasks/js/jquery.easing.min.js' %}"></script> 
+
+  <script src="{% static 'Tasks/js/validate.js' %}"></script> 
+
+  <script src="{% static 'Tasks/js/jquery.waypoints.min.js' %}"></script> 
+
+  <script src="{% static 'Tasks/js/isotope.pkgd.min.js' %}"></script> 
+
+  <script src="{% static 'Tasks/js/venobox.min.js' %}"></script> 
+    <script src="{% static 'Tasks/js/owl.carousel.min.js' %}"></script> 
+
+  <script src="{% static 'Tasks/js/aos.js' %}"></script> 
+ <!-- Template Main JS File -->
+  <script src="{% static 'Tasks/js/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,289 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>ToDoit</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+   <link href="https://image.flaticon.com/icons/png/128/2928/2928874.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- font awesome -->
+   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <!-- boxicon -->
+  <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" type="text/css" href="{% static 'Tasks/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Tasks/boxicons.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Tasks/icofont.min.css'%}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'Tasks/remixicon.css'%}">
+     <link rel="stylesheet" type="text/css" href="{% static 'Tasks/remixicon.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Tasks/owl.carousel.min.css' %}">
+   <link rel="stylesheet" type="text/css" href="{% static 'Tasks/owl.carousel.min.css' %}">
+
+  <!-- Template Main CSS File -->
+    <link rel="stylesheet" type="text/css" href="{% static 'Tasks/style.css' %}">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo mr-auto"><a href="/">ToDoit</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+         {%  if user.is_authenticated %}
+          <li><a href="{% url 'home-page' %}">Home</a></li>
+          <li><a href="{% url 'Profile-page' %}">Profile</a></li>
+          <li><a href="{% url 'logout-page' %}">Logout</a></li>
+        {%  else %}
+          <li><a href="/">Home</a></li>
+          <li><a href="{% url 'login-page' %}">Login</a></li>
+          <li><a href="{% url 'register-page' %}">Register</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+      <a href="{% url 'register-page' %}" class="get-started-btn scrollto">Get Started</a>
+      {% endif %}
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+          <h1>Better Solution For Time Management</h1>
+          <h2>Do your tasks achieve your goals</h2>
+          <div class="d-lg-flex">
+            <a href="{% url 'register-page' %}" class="btn-get-started scrollto">Get Started</a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--zA6Jycb1--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://www.taskade.com/blog/wp-content/uploads/2020/04/taskade-minimalist-todo-list-1-1024x640.gif" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Cliens Section ======= -->
+    
+
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>About Us</h2>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-12">
+            <p class="text-center">
+              Just enjoy by doing your tasks
+            </p>
+          </div>
+     
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+  
+
+   
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Benefits of the to-do list</h2>
+          
+        </div>
+
+        <div class="row">
+          <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bxl-dribbble"></i></div>
+              <h4><a href="">Prioritize</a></h4>
+              <p>Manage tasks effectively. You can see all of the items at a glance and prioritize what most needs to be done according to timelines and importance.</p>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-file"></i></div>
+              <h4><a href="">Creates order</a></h4>
+              <p>A to do list is an orderly way to organize how to do the things you want to do. Projects and plans get broken down into bite size chunks that are doable. A to do list not only creates order but also gives you a strategy for getting things done.</p>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-tachometer"></i></div>
+              <h4><a href="">Feeling Productive</a></h4>
+              <p>It is a great feeling to cross items off your list. This gives you back control. It also gives you a positive productive feeling and this alone is worth keeping lists for.</p>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="400">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-layer"></i></div>
+              <h4><a href="">Accountability</a></h4>
+              <p>
+The act of writing it down in itself holds you accountable to get it done. Once you write it down, you have given it life and now are creating a plan to accomplish the goals you would like to see completed.  You are now accountable to you.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+   
+
+    
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p >We're here to answer any questions you might have . We look forward to hearing from you :)</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 mt-5 mt-lg-0 d-flex align-items-stretch">
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="name">Your Name</label>
+                  <input type="text" name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  <div class="validate"></div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name">Your Email</label>
+                  <input type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Please enter a valid email" />
+                  <div class="validate"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name">Subject</label>
+                <input type="text" class="form-control" name="subject" id="subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                <div class="validate"></div>
+              </div>
+              <div class="form-group">
+                <label for="name">Message</label>
+                <textarea class="form-control" name="message" rows="10" data-rule="required" data-msg="Please write something for us"></textarea>
+                <div class="validate"></div>
+              </div>
+              <div class="mb-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit" disabled="">Send Message</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+   
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="/">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/">Services</a></li>
+            
+            </ul>
+          </div>
+
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Social Networks</h4>
+
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>ToDoit</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class='bx bxs-chevron-up'></i></a>
+
+
+   <!-- Vendor JS Files -->
+    <script src="{% static 'Tasks/js/jquery.min.js' %}"></script> 
+   <script src="{% static 'Tasks/js/bootstrap.bundle.min.js' %}"></script> 
+
+  <script src="{% static 'Tasks/js/jquery.easing.min.js' %}"></script> 
+
+  <script src="{% static 'Tasks/js/validate.js' %}"></script> 
+
+  <script src="{% static 'Tasks/js/jquery.waypoints.min.js' %}"></script> 
+
+  <script src="{% static 'Tasks/js/isotope.pkgd.min.js' %}"></script> 
+
+  <script src="{% static 'Tasks/js/venobox.min.js' %}"></script> 
+    <script src="{% static 'Tasks/js/owl.carousel.min.js' %}"></script> 
+
+  <script src="{% static 'Tasks/js/aos.js' %}"></script> 
+ <!-- Template Main JS File -->
+  <script src="{% static 'Tasks/js/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+{% extends "Tasks/base.html" %}
+{%block content %}
+
+{% if user.username == view.kwargs.username %}
+<a href="{% url 'create-task'  %}" class="get-started-btn scrollto btn-primary ml-5 mb-5">New Task</a>
+{% for task in user_tasks %}
+		
+		{% if task.priority == '0' %}
+		<div class="card border-dark  mt-2 mb-2">
+		{% elif task.priority == '1'  %}
+		<div class="card border-success mt-2 mb-2">
+		{% elif task.priority == '2'  %}
+		<div class="card border-warning mt-2 mb-2">
+		{% elif task.priority == '3'  %}
+		<div class="card border-danger mt-2 mb-2">
+		{% endif %}
+
+		  	<div class="card-body">
+		   		<div class="form-check">
+		   				
+		 				<div class="row">
+							<div class="col-md-8">
+							{% if task.completed == True %}
+							<p class="lead"><del> {{ task.task}} {{ task.completed }}</del></p> 
+							{% else %}
+							<p class="lead"><b> {{ task.task}} {{ task.completed }}</b> </p>
+							{% endif %}	
+							</div>
+							<div class="col-md-3">
+							{% if task.completed == True %}
+							<button class="btn btn-primary btn-sm mb-1" disabled><i class="icon-undo"></i> Update</button>
+				              <a class="btn btn-danger btn-sm mb-1" href="{% url 'delete-task' task.id %}" ><i class="icon-trash"></i> Delete</a>
+				              {% else %}
+				              <a class="btn btn-primary btn-sm mb-1" href="{% url 'update-task' task.id %}" ><i class="icon-undo"></i> Update</a>
+				              <a class="btn btn-danger btn-sm mb-1" href="{% url 'delete-task' task.id %}" ><i class="icon-trash"></i> Delete</a>  				
+							{% endif %}			
+							</div>
+		  				</div>
+		    	</div>
+			</div>
+		</div>
+
+{% endfor %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+      {% if is_paginated %}
+    {% if page_obj.has_previous %}
+      <a class="btn btn-primary btn-sm" href="?page=1">First</a>
+      <a class="btn btn-primary btn-sm" href="?page={{page_obj.previous_page_number}}">Previous</a>
+    {% endif%}
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+      <a class="btn btn-primary btn-sm" href="?page={{num}}">{{num}}</a>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+      <a class="btn btn-primary btn-sm" href="?page={{num}}">{{num}}</a>
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <a class="btn btn-primary btn-sm" href="?page={{page_obj.next_page_number}}">Next</a>
+      <a class="btn btn-primary btn-sm" href="?page={{page_obj.paginator.num_pages}}">Last</a>
+    {% endif %}
+  {%  endif %}
+    </div>
+  </div>
+
+{% else %}
+<p>Error 404</p>
+
+
+{%  endif %}	
+
+{% endblock %}
